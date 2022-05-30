@@ -1,0 +1,35 @@
+version: '3'
+
+services: 
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pwd
+      MYSQL_USER: api_user
+      MYSQL_PASSWORD: api_pwd
+      MYSQL_DATABASE: medics
+    ports:
+      - 3306:3306
+    networks:
+      - mednet
+#    volumes:
+#      - ./db:/docker-entrypoint-initdb.d
+
+#  api:
+#    build: .
+#    depends_on:
+#      - db 
+#    ports:
+#      - 8000:8000
+#    networks:
+#      - mednet
+
+#volumes:
+#  db: 
+#    driver: local 
+
+networks:
+  mednet:
+    driver: bridge
+
