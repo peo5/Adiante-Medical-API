@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Put, Delete, Query, Param } from '@nestjs/common';
-import { MedicsService } from './medics.service';
+import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/common'
+
+import { CreateMedicDto } from './medics.create.dto'
+import { MedicsService } from './medics.service' 
 
 @Controller('medics')
 export class MedicsController {
   constructor(private readonly medicsService: MedicsService) {}
 
 	@Post() 
-	create(): object {
+	create(@Body() medic: CreateMedicDto): object {
 		return this.medicsService.create();
 	}
 
