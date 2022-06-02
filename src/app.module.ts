@@ -1,22 +1,24 @@
 import { Module } from '@nestjs/common';
-// import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller'; 
 import { AppService } from './app.service';
-import { MedicModule } from './medic/medic.module';
+import { MedicsModule } from './medics/medics.module';
+import { Medic } from './medics/medics.entity';
 
 @Module({
   imports: [
-		// TypeOrmModule.forRoot({
-			// type: 'mysql',
-			// host: 'localhost',
-			// port: 3306,
-			// username: 'api_user',
-			// password: 'api_pwd',
-			// database: 'medics',
-			// entities: ['medic.entity.ts'],
-			// synchronize: true,
-		// }),
-		MedicModule
+		TypeOrmModule.forRoot({
+			type: 'mysql',
+			host: 'localhost',
+			port: 3306,
+			username: 'api_user',
+			password: 'api_pwd',
+			database: 'medics',
+			autoLoadEntities: true,
+			synchronize: true,
+		}),
+		MedicsModule
 	],
   controllers: [AppController],
   providers: [AppService]
