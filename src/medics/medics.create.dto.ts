@@ -39,7 +39,6 @@ export class CreateMedicDto {
 	@ApiProperty({ 
 		type: Array, 
 		items: { 
-			type: 'string', 
 			enum: Object.values(MedicSpecialty) 
 		} 
 	})
