@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/common'
 
 import { CreateMedicDto } from './medics.create.dto'
+import { UpdateMedicDto } from './medics.update.dto'
 import { MedicsService } from './medics.service' 
 
 @Controller('medics')
@@ -23,7 +24,7 @@ export class MedicsController {
 	}
 
 	@Put(':id') 
-	update(@Param('id') id: string): object {
+	update(@Body() medic: UpdateMedicDto, @Param('id') id: string): object {
 		return this.medicsService.update(id);
 	}
 
