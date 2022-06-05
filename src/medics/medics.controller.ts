@@ -10,7 +10,7 @@ export class MedicsController {
 
 	@Post() 
 	create(@Body() medic: CreateMedicDto): object {
-		return this.medicsService.create();
+		return this.medicsService.create(medic);
 	}
 
 	@Get()
@@ -24,8 +24,8 @@ export class MedicsController {
 	}
 
 	@Put(':id') 
-	update(@Body() medic: UpdateMedicDto, @Param('id') id: string): object {
-		return this.medicsService.update(id);
+	update(@Param('id') id: string, @Body() medic: UpdateMedicDto): object {
+		return this.medicsService.update(id, medic);
 	}
 
 	@Delete(':id') 

@@ -3,7 +3,7 @@ import {
 	Length,
 	IsNotEmpty,
 	IsNumberString,
-	IsAlpha,
+	Matches,
 	ArrayMinSize
 } from 'class-validator' 
 
@@ -11,27 +11,37 @@ import { MedicSpecialty } from './medics.specialty.enum'
 
 export class CreateMedicDto {
 	
-	@ApiProperty()
+	@ApiProperty({
+		example: '1234567',
+	})
 	@IsNumberString()
 	@Length(1, 7)
 	crm: string
 	
-	@ApiProperty()
-	@IsAlpha()
+	@ApiProperty({
+		example: 'Paulo Rocha',
+	})
+	// @Matches(/^[a-zA-Z]*(\s[a-zA-Z]*)*$/)
 	@IsNotEmpty()
 	name: string
 
-	@ApiProperty()
+	@ApiProperty({
+		example: '1123272455',
+	})
 	@IsNumberString()
 	@Length(8, 15)
 	telephone: string
 
-	@ApiProperty()
+	@ApiProperty({
+		example: '5511934343434',
+	})
 	@IsNumberString()
 	@Length(8, 15)
 	cellphone: string
 
-	@ApiProperty()
+	@ApiProperty({
+		example: '33464000',
+	})
 	@IsNumberString()
 	@Length(8, 8)
 	cep: string
@@ -40,7 +50,8 @@ export class CreateMedicDto {
 		type: Array, 
 		items: { 
 			enum: Object.values(MedicSpecialty) 
-		} 
+		}, 
+		example: ['Alergologia', 'Angiologia'],
 	})
 	@ArrayMinSize(2)
 	specialty: MedicSpecialty[]
