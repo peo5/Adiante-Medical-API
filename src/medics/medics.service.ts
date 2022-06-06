@@ -10,6 +10,7 @@ import { Medic } from './medics.entity';
 
 import { CreateMedicDto } from './medics.create.dto';
 import { UpdateMedicDto } from './medics.update.dto';
+import { FilterMedicsDto } from './medics.filter.dto'
 import { AddressDto } from './medics.address.dto';
 
 @Injectable()
@@ -21,14 +22,6 @@ export class MedicsService {
 		private httpService: HttpService
 	) {}
 
-	async exists(id: string): Promise<boolean> {
-
-		let medic = await this.medicsRepository.findOneBy({ crm: id });
-
-		return medic !== null;
-
-	}
-
 	async addressFromCep(cep: string): Promise<AddressDto> {
 
 		return this.httpService
@@ -37,8 +30,6 @@ export class MedicsService {
 				map((res: AxiosResponse<any, any>) => {
 
 					const data = res.data;
-
-					console.log(data);
 
 					if(!data.cep)
 						throw new BadRequestException(`Invalid CEP: ${cep}`);
@@ -57,47 +48,60 @@ export class MedicsService {
 
 	}
 
+	async exists(crm: string): Promise<boolean> {
+
+		let medic = await this.medicsRepository.findOneBy({ crm: crm });
+
+		return medic !== null;
+
+	} 
+
 	async create(medic: CreateMedicDto): Promise<object> {
 
 		if(await this.exists(medic.crm))
 			throw new ConflictException(`Medic with CRM ${medic.crm} already exists`);
 
 		const address = await this.addressFromCep(medic.cep); 
-		console.log(address);
-		return this.medicsRepository.save({...medic, ...address});
+		return this.medicsRepository.save({...medic, ...address, date_deleted: null});
 
 	}
 
-	readAll(query: any): Promise<Medic[]> {
+	readAll(filter: FilterMedicsDto): Promise<Medic[]> {
 
-		return this.medicsRepository.find();
+		let options = {}; 
+		for(let key in filter)
+			options[key] = Like(`%${filter[key]}%`);
 
-	}
+		console.log('filter', filter);
 
-	async readOne(id: string): Promise<Medic> {
-
-		if(!await this.exists(id))
-			throw new NotFoundException(`Medic with CRM ${id} does not exist`)
-
-		return this.medicsRepository.findOneBy({ crm: id });
+		return this.medicsRepository.findBy(options);
 
 	}
 
-	async update(id: string, medic: UpdateMedicDto): Promise<object> {
+	async readOne(crm: string): Promise<Medic> {
 
-		if(!await this.exists(id))
-			throw new NotFoundException(`Medic with CRM ${id} does not exist`)
+		if(!await this.exists(crm))
+			throw new NotFoundException(`Medic with CRM ${crm} does not exist`)
 
-		return this.medicsRepository.update(id, medic);
+		return this.medicsRepository.findOneBy({ crm: crm });
 
 	}
 
-	async softDelete(id: string): Promise<void> {
+	async update(crm: string, medic: UpdateMedicDto): Promise<object> {
 
-		if(!await this.exists(id))
-			throw new NotFoundException(`Medic with CRM ${id} does not exist`)
+		if(!await this.exists(crm))
+			throw new NotFoundException(`Medic with CRM ${crm} does not exist`)
 
-		await this.medicsRepository.delete(id);
+		return this.medicsRepository.update(crm, medic);
+
+	}
+
+	async softDelete(crm: string): Promise<object> {
+
+		if(!await this.exists(crm))
+			throw new NotFoundException(`Medic with CRM ${crm} does not exist`)
+
+		return this.medicsRepository.softDelete(crm);
 
 	}
 

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/
 
 import { CreateMedicDto } from './medics.create.dto'
 import { UpdateMedicDto } from './medics.update.dto'
+import { FilterMedicsDto } from './medics.filter.dto'
 import { MedicsService } from './medics.service' 
 
 @Controller('medics')
@@ -14,23 +15,23 @@ export class MedicsController {
 	}
 
 	@Get()
-	readAll(@Query() query: any): object {
-		return this.medicsService.readAll(query);
+	readAll(@Query() filter: FilterMedicsDto): object {
+		return this.medicsService.readAll(filter);
 	}
 
-	@Get('/:id')
-	readOne(@Param('id') id: string): object {
-		return this.medicsService.readOne(id);
+	@Get('/:crm')
+	readOne(@Param('crm') crm: string): object {
+		return this.medicsService.readOne(crm);
 	}
 
-	@Put(':id') 
-	update(@Param('id') id: string, @Body() medic: UpdateMedicDto): object {
-		return this.medicsService.update(id, medic);
+	@Put(':crm') 
+	update(@Param('crm') crm: string, @Body() medic: UpdateMedicDto): object {
+		return this.medicsService.update(crm, medic);
 	}
 
-	@Delete(':id') 
-	softDelete(@Param('id') id: string): object {
-		return this.medicsService.softDelete(id);
+	@Delete(':crm') 
+	softDelete(@Param('crm') crm: string): object {
+		return this.medicsService.softDelete(crm);
 	}
 	 
 }

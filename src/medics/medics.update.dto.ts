@@ -17,8 +17,8 @@ export class UpdateMedicDto  {
 		required: false,
 	})
 	@IsOptional()
-	// @Matches(/^[a-zA-Z]*(\s[a-zA-Z]*)*$/)
 	@IsNotEmpty()
+	@Matches(/^[a-zA-Z]*(\s[a-zA-Z]*)*$/)
 	name: string
 
 	@ApiProperty({
@@ -26,8 +26,8 @@ export class UpdateMedicDto  {
 		required: false
 	})
 	@IsOptional()
-	@IsNumberString()
 	@Length(8, 15)
+	@IsNumberString()
 	telephone: string
 
 	@ApiProperty({
@@ -35,8 +35,8 @@ export class UpdateMedicDto  {
 		required: false
 	})
 	@IsOptional()
-	@IsNumberString()
 	@Length(8, 15)
+	@IsNumberString()
 	cellphone: string
 
 	@ApiProperty({
@@ -44,8 +44,8 @@ export class UpdateMedicDto  {
 		required: false
 	})
 	@IsOptional()
-	@IsNumberString()
 	@Length(8, 8)
+	@IsNumberString()
 	cep: string
 
 	@ApiProperty({ 
