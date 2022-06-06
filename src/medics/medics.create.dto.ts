@@ -21,7 +21,6 @@ export class CreateMedicDto {
 	@ApiProperty({
 		example: 'Paulo Rocha',
 	})
-	// @Matches(/^[a-zA-Z]*(\s[a-zA-Z]*)*$/)
 	@IsNotEmpty()
 	name: string
 
@@ -40,7 +39,7 @@ export class CreateMedicDto {
 	cellphone: string
 
 	@ApiProperty({
-		example: '33464000',
+		example: '03314000',
 	})
 	@IsNumberString()
 	@Length(8, 8)

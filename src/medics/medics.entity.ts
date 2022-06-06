@@ -35,6 +35,21 @@ export class Medic {
 
 	@Column({ length: 8 })
 	cep: string
+	
+	@Column({ length: 120 })
+	street: string
+
+	@Column({ length: 120 })
+	complement: string
+	
+	@Column({ length: 120 })
+	area: string
+
+	@Column({ length: 120 })
+	city: string
+
+	@Column({ length: 2 })
+	state: string
 
 	@Column({ type: 'set', enum: MedicSpecialty })
 	specialty: MedicSpecialty[]
