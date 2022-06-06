@@ -12,9 +12,9 @@ docker-compose up dev
 docker-compose up prod
 ```
 
-Note that it may take some time to get everything ready =P
+Note that it may take some time to get everything ready 😛
 
 ## Documention
 
-To access the API swagger documentation visit http://localhost:3000/docs
+Once everything is up and running, visit the API swagger documentation on http://localhost:3000/docs
 
