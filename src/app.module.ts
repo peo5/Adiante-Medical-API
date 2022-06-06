@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller'; 
@@ -8,16 +9,23 @@ import { Medic } from './medics/medics.entity';
 
 @Module({
   imports: [
-		TypeOrmModule.forRoot({
-			type: 'mysql',
-			host: 'localhost',
-			port: 3306,
-			username: 'api_user',
-			password: 'api_pwd',
-			database: 'medics',
-			autoLoadEntities: true,
-			synchronize: true,
-		}),
+		ConfigModule.forRoot(),
+		TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],      
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('DATABASE_HOST') || 'localhost',
+        port: parseInt(configService.get('DATABASE_PORT')) || 3306,
+        username: configService.get('DATABASE_USER') || 'api_user',
+        password: configService.get('DATABASE_PASSWORD') || 'api_pwd',
+        database: configService.get('DATABASE_NAME') || 'medic_db',
+				reconnectTries: 500,
+				reconnectInterval: 5000,
+				autoLoadEntities: true,
+        synchronize: true,
+      }),
+      inject: [ConfigService],
+    }),
 		MedicsModule
 	],
   controllers: [AppController],

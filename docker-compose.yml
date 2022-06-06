@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services: 
 
@@ -8,28 +8,72 @@ services:
       MYSQL_ROOT_PASSWORD: root_pwd
       MYSQL_USER: api_user
       MYSQL_PASSWORD: api_pwd
-      MYSQL_DATABASE: medics
+      MYSQL_DATABASE: medic_db
     ports:
       - 3306:3306
     networks:
-      - mednet
-#    volumes:
-#      - ./db:/docker-entrypoint-initdb.d
+      - med_net 
+#    healthcheck:
+#      test: ["CMD", "echo 'SELECT version();' | mysql$MYSQL_ROOT_PASSWORD"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 100
 
-#  api:
-#    build: .
-#    depends_on:
-#      - db 
-#    ports:
-#      - 8000:8000
-#    networks:
-#      - mednet
+  dev:
+    container_name: med_api_dev
+    image: med-api-dev:1.0.0
+    depends_on:
+      - db
+#      db:
+#        condition: service_healthy
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
+      DATABASE_USER: api_user
+      DATABASE_PASSWORD: api_pwd
+      DATABASE_NAME: medic_db
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+    networks:
+      - med_net
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
 
-#volumes:
-#  db: 
-#    driver: local 
+  prod:
+    container_name: med_api_prod
+    image: med-api-prod:1.0.0
+    depends_on:
+      - db
+#      db:
+#        condition: service_healthy
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
+      DATABASE_USER: api_user
+      DATABASE_PASSWORD: api_pwd
+      DATABASE_NAME: medic_db
+    build:
+      context: .
+      target: production
+      dockerfile: ./Dockerfile
+    command: npm run start
+    ports:
+      - 3000:3000
+    networks:
+      - med_net
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
 
 networks:
-  mednet:
+  med_net:
     driver: bridge
 

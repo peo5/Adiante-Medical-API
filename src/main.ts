@@ -14,7 +14,7 @@ async function bootstrap() {
 
 	const config = new DocumentBuilder()
     .setTitle('Medical API')
-    .setDescription('The best system for registering medics of varying specialties.')
+    .setDescription('The best system for registering medics.')
     .setVersion('1.0')
     .addTag('medic')
     .build();

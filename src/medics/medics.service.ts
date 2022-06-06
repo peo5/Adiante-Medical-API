@@ -72,8 +72,6 @@ export class MedicsService {
 		for(let key in filter)
 			options[key] = Like(`%${filter[key]}%`);
 
-		console.log('filter', filter);
-
 		return this.medicsRepository.findBy(options);
 
 	}
