@@ -11,7 +11,6 @@ import { MedicSpecialty } from './medics.specialty.enum';
 export class IsMedicSpecialtyArrayConstraint implements ValidatorConstraintInterface {
 
   validate(array: Array<MedicSpecialty>, args: ValidationArguments) {
-		console.log(array);
 		const specialties = Object.values(MedicSpecialty);	
 		for(let item of array)
 			if(!specialties.includes(item))
@@ -20,7 +19,6 @@ export class IsMedicSpecialtyArrayConstraint implements ValidatorConstraintInter
   }
 
 	defaultMessage(args: ValidationArguments) {
-		console.log('args', args)
     return `${args.property} must contain only valid medical specialties`;
   }
 
