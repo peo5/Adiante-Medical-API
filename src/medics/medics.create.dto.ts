@@ -8,6 +8,7 @@ import {
 } from 'class-validator' 
 
 import { MedicSpecialty } from './medics.specialty.enum'
+import { IsMedicSpecialtyArray } from './medics.specialty.validator'
 
 export class CreateMedicDto {
 	
@@ -53,6 +54,7 @@ export class CreateMedicDto {
 		example: ['Alergologia', 'Angiologia'],
 	})
 	@ArrayMinSize(2)
-	specialty: MedicSpecialty[]
+	@IsMedicSpecialtyArray()
+	specialties: MedicSpecialty[]
 
 }

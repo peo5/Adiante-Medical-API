@@ -52,7 +52,7 @@ export class Medic {
 	state: string
 
 	@Column({ type: 'set', enum: MedicSpecialty })
-	specialty: MedicSpecialty[]
+	specialties: MedicSpecialty[]
 
 	@CreateDateColumn()
 	date_created: Date

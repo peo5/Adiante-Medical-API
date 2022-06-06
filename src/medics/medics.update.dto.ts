@@ -9,6 +9,7 @@ import {
 } from 'class-validator' 
 
 import { MedicSpecialty } from './medics.specialty.enum'
+import { IsMedicSpecialtyArray } from './medics.specialty.validator'
 
 export class UpdateMedicDto  {
 
@@ -18,7 +19,6 @@ export class UpdateMedicDto  {
 	})
 	@IsOptional()
 	@IsNotEmpty()
-	@Matches(/^[a-zA-Z]*(\s[a-zA-Z]*)*$/)
 	name: string
 
 	@ApiProperty({
@@ -58,7 +58,8 @@ export class UpdateMedicDto  {
 	})
 	@IsOptional()
 	@ArrayMinSize(2)
-	specialty: MedicSpecialty[]
+	@IsMedicSpecialtyArray()
+	specialties: MedicSpecialty[]
 
 }
 
