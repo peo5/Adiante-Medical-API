@@ -11,44 +11,42 @@ export class FilterMedicsDto {
 	
 	@ApiProperty({ required: false })
 	@IsOptional()
-	crm: string 
+	crm?: string 
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	name: string 
+	name?: string 
 	
 	@ApiProperty({ required: false })
 	@IsOptional()
-	telephone: string 
+	telephone?: string 
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	cellphone: string 
+	cellphone?: string 
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	cep: string 
+	cep?: string 
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	street: string
+	street?: string
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	complement: string
+	complement?: string
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	area: string
+	area?: string
 	
 	@ApiProperty({ required: false })
 	@IsOptional()
-	city: string
+	city?: string
 
 	@ApiProperty({ required: false })
 	@IsOptional()
-	state: string
+	state?: string
 
-	// specialty: MedicSpecialty[]
-	
 }

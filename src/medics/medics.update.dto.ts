@@ -19,7 +19,7 @@ export class UpdateMedicDto  {
 	})
 	@IsOptional()
 	@IsNotEmpty()
-	name: string
+	name?: string
 
 	@ApiProperty({
 		example: '1123272455',
@@ -28,7 +28,7 @@ export class UpdateMedicDto  {
 	@IsOptional()
 	@Length(8, 15)
 	@IsNumberString()
-	telephone: string
+	telephone?: string
 
 	@ApiProperty({
 		example: '5511934343434',
@@ -37,7 +37,7 @@ export class UpdateMedicDto  {
 	@IsOptional()
 	@Length(8, 15)
 	@IsNumberString()
-	cellphone: string
+	cellphone?: string
 
 	@ApiProperty({
 		example: '33464000',
@@ -46,7 +46,7 @@ export class UpdateMedicDto  {
 	@IsOptional()
 	@Length(8, 8)
 	@IsNumberString()
-	cep: string
+	cep?: string
 
 	@ApiProperty({ 
 		type: Array, 
@@ -59,7 +59,7 @@ export class UpdateMedicDto  {
 	@IsOptional()
 	@ArrayMinSize(2)
 	@IsMedicSpecialtyArray()
-	specialties: MedicSpecialty[]
+	specialties?: MedicSpecialty[]
 
 }
 
