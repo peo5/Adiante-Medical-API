@@ -16,5 +16,6 @@ Note that it may take some time to get everything ready 😛
 
 ## Documention
 
-Once everything is up and running, visit the API swagger documentation on http://localhost:3000/docs
+Once everything is up and running, visit the API swagger documentation at http://localhost:3000/docs
+On this page is also possible to test all the API endpoints
 
