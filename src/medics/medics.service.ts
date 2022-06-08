@@ -61,7 +61,12 @@ export class MedicsService {
 		if(!await this.exists(crm))
 			throw new NotFoundException(`Medic with CRM ${crm} does not exist`)
 
-		return this.medicsRepository.update(crm, medic);
+		let address = {}; 
+
+		if(medic.cep)
+			address = await this.addressService.getFromCep(medic.cep); 
+
+		return this.medicsRepository.update(crm, {...medic, ...address});
 
 	}
 
